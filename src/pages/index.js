@@ -340,6 +340,7 @@ const IndexPage = () => {
                     url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                     playing={playing}
                     controls={false}
+                    playsinline={true}
                     width={'100%'}
                     height={'auto'}
                     style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7 }}

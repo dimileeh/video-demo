@@ -356,9 +356,11 @@ const IndexPage = () => {
                           responsive: true,
                           pip: false,
                           speed: false,
-                          playsinline: false,
+                          playsinline: true,
                           byline: false,
-                          color: 'cf003d'
+                          color: 'cf003d',
+                          muted: muted,
+                          controls: false,
                         }
                       },
                     }}

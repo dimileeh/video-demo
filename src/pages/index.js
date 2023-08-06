@@ -150,9 +150,9 @@ function iOS() {
     'iPad',
     'iPhone',
     'iPod'
-  ].includes(navigator.userAgentData.platform)
+  ].includes(navigator?.userAgentData?.platform)
     // iPad on iOS 13 detection
-    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    || (navigator?.userAgent.includes("Mac") && "ontouchend" in document)
 }
 
 

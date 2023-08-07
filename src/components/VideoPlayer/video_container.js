@@ -182,7 +182,7 @@ const VideoContainer = ({open, handleClose}) => {
             gridArea: "1/1",
           }}
         >
-          <Grid item xs={12} sm={isFullScreen ? 12 : 10} md={isFullScreen ? 12 : 8}
+          <Grid item xs={12} sm={isFullScreen ? 12 : 10} md={isFullScreen ? 12 : 8} xl={8}
             ref={containerRef}
             sx={{
               gridArea: "1/1",
@@ -257,7 +257,8 @@ const VideoContainer = ({open, handleClose}) => {
             gridArea: "1/1",
           }}
         >
-          <Grid item xs={12} sm={isFullScreen ? 12 : 10} md={isFullScreen ? 12 : 8} sx={{
+          <Grid item xs={12} sm={isFullScreen ? 12 : 10} md={isFullScreen ? 12 : 8} xl={8}
+          sx={{
             gridArea: "1/1",
             position: "relative",
             // This centers the other elements inside the hero component

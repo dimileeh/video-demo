@@ -100,10 +100,13 @@ const VideoControls = ({
                 </div>
 
 
-                <div style={{
-                  padding: 8,
+                <Grid item
+                xs={12}
+                md={10}
+                sx={{
+                  padding: 1,
                   borderRadius: 16,
-                  width: '80%',
+                  width: '100%',
                   maxWidth: '100%',
                   margin: 'auto',
                   position: 'relative',
@@ -202,7 +205,7 @@ const VideoControls = ({
                     </PlayerButton>
 
                   </Box>
-                </div>
+                </Grid>
               </Box>
 
             </Grid>

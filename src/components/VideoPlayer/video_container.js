@@ -65,11 +65,18 @@ const VideoContainer = ({open, handleClose}) => {
     }
   }, [])
 
-  const onClose = () => {
+  const onDialogClose = () => {
     // setPlaying(true);
     // setPlayed(0);
     // setSeeking(false);
     handleClose();
+  }
+
+  const onVideoClose = () => {
+    if (screenfull.isEnabled && screenfull.isFullscreen) {
+      screenfull.exit();
+    }
+    handleClose()
   }
 
   const setMouseMove = (e) => {
@@ -159,11 +166,11 @@ const VideoContainer = ({open, handleClose}) => {
     <Dialog
       fullScreen
       open={open}
-      onClose={onClose}
+      onClose={onDialogClose}
       TransitionComponent={Transition}
     >
       <Box
-        sx={(theme) => ({ backgroundColor: theme.palette.common.black, height: '100vh', display: "grid" })}
+        sx={(theme) => ({ backgroundColor: theme.palette.common.black, height: '100%', display: "grid" })}
       onMouseMove={setMouseMove}
       >
         {/* Player Begins */}
@@ -192,7 +199,7 @@ const VideoContainer = ({open, handleClose}) => {
               playsinline={true}
               width={'100%'}
               height={'auto'}
-              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7 }}
+              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxHeight: '100vh' }}
               muted={muted}
               volume={volume}
               onPlay={handlePlay}
@@ -228,7 +235,7 @@ const VideoContainer = ({open, handleClose}) => {
           seeking={seeking}
           muted={muted}
           isFullScreen={isFullScreen}
-          handleClose={handleClose}
+          handleClose={onVideoClose}
           mouseMoving={mouseMoving}
           handlePlayPause={handlePlayPause}
           handleToggleMuted={handleToggleMuted}
@@ -250,7 +257,7 @@ const VideoContainer = ({open, handleClose}) => {
             gridArea: "1/1",
           }}
         >
-          <Grid item xs={12} sm={10} md={8} sx={{
+          <Grid item xs={12} sm={isFullScreen ? 12 : 10} md={isFullScreen ? 12 : 8} sx={{
             gridArea: "1/1",
             position: "relative",
             // This centers the other elements inside the hero component

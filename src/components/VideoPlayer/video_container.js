@@ -1,11 +1,12 @@
 import * as React from "react"
-import { findDOMNode } from 'react-dom'
 import { useState } from "react"
 
 import { Grid, Box, IconButton, Fade, Dialog } from "@mui/material"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import { useTheme } from '@mui/material/styles';
+
+import { isIOS } from 'react-device-detect';
 
 import ReactPlayer from 'react-player/vimeo'
 import screenfull from 'screenfull'
@@ -15,18 +16,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
 
-function iOS() {
-  return [
-    'iPad Simulator',
-    'iPhone Simulator',
-    'iPod Simulator',
-    'iPad',
-    'iPhone',
-    'iPod'
-  ].includes(navigator?.userAgentData?.platform)
-    // iPad on iOS 13 detection
-    || (navigator?.userAgent.includes("Mac") && "ontouchend" in document)
-}
+// function iOS() {
+//   return [
+//     'iPad Simulator',
+//     'iPhone Simulator',
+//     'iPod Simulator',
+//     'iPad',
+//     'iPhone',
+//     'iPod'
+//   ].includes(navigator?.userAgentData?.platform)
+//     // iPad on iOS 13 detection
+//     || (navigator?.userAgent.includes("Mac") && "ontouchend" in document)
+// }
 
 const VideoContainer = ({open, handleClose}) => {
 
@@ -62,7 +63,7 @@ const VideoContainer = ({open, handleClose}) => {
   }, []);
 
   React.useEffect(() => {
-    if (!!iOS()) {
+    if (isIOS) {
       setMuted(true)
     }
   }, [])

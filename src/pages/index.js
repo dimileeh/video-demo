@@ -1,5 +1,4 @@
 import * as React from "react"
-import { findDOMNode } from 'react-dom'
 import { useState } from "react"
 import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"

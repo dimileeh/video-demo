@@ -40,6 +40,8 @@ const VideoContainer = ({open, handleClose}) => {
   const [mouseMoving, setMouseMoving] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
+  const [videoChapters, setVideoChapters] = useState([]);
+
   const playerRef = React.useRef(null);
   const containerRef = React.useRef(null);
   const timerRef = React.useRef(null);
@@ -64,6 +66,21 @@ const VideoContainer = ({open, handleClose}) => {
       setMuted(true)
     }
   }, [])
+
+  React.useEffect(() => {
+    const vimeoPlayer = playerRef.current?.getInternalPlayer()
+    if (!!vimeoPlayer) {
+      vimeoPlayer.getChapters()
+      .then(function(chapters) {
+        // `chapters` indicates an array of chapter objects
+        // [{startTime: 0, title: 'Chapter 1', index: 1}]
+        setVideoChapters(chapters)
+      }).catch(function(error) {
+        // An error occurred
+      });
+    }
+
+  }, [playerRef.current])
 
   const onDialogClose = () => {
     // setPlaying(true);

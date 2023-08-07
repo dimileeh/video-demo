@@ -1,7 +1,7 @@
 import * as React from "react"
 import { styled, useTheme } from '@mui/material/styles';
 
-import { Grid, Box, IconButton, Typography, Fade, Slider } from "@mui/material"
+import { Grid, Box, IconButton, Typography, Fade, Slider, Slide } from "@mui/material"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import Replay10Icon from '@mui/icons-material/Replay10';
@@ -47,6 +47,7 @@ const VideoControls = ({
   duration, played, seeking, playing, muted, isFullScreen,
   mouseMoving, handlePlayPause, handleToggleMuted, handleClickFullScreen, handleClose,
   handleRewind10Seconds, handleFastForward10Seconds, handleSeekChange, handleSeekMouseUp,
+  containerRef,
 }) => {
 
   const theme = useTheme();
@@ -100,6 +101,10 @@ const VideoControls = ({
                   </PlayerButton>
                 </div>
 
+
+                <Slide direction="up" in={mouseMoving || !playing} container={containerRef}
+                timeout={{ enter: 300, exit: 600 }}
+                easing={{ enter: theme.transitions.easing.easeOut, exit: theme.transitions.easing.easeIn }}>
 
                 <Grid item
                 xs={12}
@@ -207,6 +212,7 @@ const VideoControls = ({
 
                   </Box>
                 </Grid>
+                </Slide>
               </Box>
 
             </Grid>

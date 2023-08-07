@@ -244,6 +244,7 @@ const VideoContainer = ({open, handleClose}) => {
           handleFastForward10Seconds={handleFastForward10Seconds}
           handleSeekChange={handleSeekChange}
           handleSeekMouseUp={handleSeekMouseUp}
+          containerRef={containerRef.current}
         />
         {/* Player Controls End */}
 

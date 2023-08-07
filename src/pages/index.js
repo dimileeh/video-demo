@@ -8,7 +8,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
-import { Grid, Box, Container, IconButton, ButtonBase, Button, Typography, Fade, Dialog, Paper, LinearProgress, Slider, Stack, Slide } from "@mui/material"
+import { Grid, Container, Typography, ButtonBase } from "@mui/material"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { styled } from '@mui/material/styles';
 

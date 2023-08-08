@@ -152,15 +152,19 @@ const VideoContainer = ({open, handleClose}) => {
   }
 
   const handleClickFullScreen = () => {
+    if (isIOS) {
+      console.log("DEBUG: FULLSCREEN IOS")
+      setPlayInline(false)
+      setPlaying(true)
+      setMuted(false)
+    }
+
     if (screenfull.isEnabled) {
       if (screenfull.isFullscreen) {
         screenfull.exit();
       } else {
         if (isIOS) {
-          console.log("DEBUG: FULLSCREEN IOS")
-          setPlayInline(false)
-          setPlaying(true)
-          setMuted(false)
+          console.log("DEBUG2: FULLSCREEN IOS")
           screenfull.request(findDOMNode(playerRef.current))
         }
         else {

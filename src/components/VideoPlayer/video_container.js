@@ -157,6 +157,7 @@ const VideoContainer = ({open, handleClose}) => {
         screenfull.exit();
       } else {
         if (isIOS) {
+          console.log("DEBUG: FULLSCREEN IOS")
           setPlayInline(false)
           setPlaying(true)
           setMuted(false)
@@ -167,6 +168,10 @@ const VideoContainer = ({open, handleClose}) => {
       }
     }
   }
+
+  React.useEffect(() => {
+    screenfull.request(findDOMNode(playerRef.current))
+  }, [playInline])
 
   const handleDuration = (duration) => {
     setDuration(duration);

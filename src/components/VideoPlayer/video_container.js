@@ -207,7 +207,7 @@ const VideoContainer = ({ open, handleClose }) => {
             }}>
             <ReactPlayer
               ref={playerRef}
-              url={`https://player.vimeo.com/video/851579304?${playInline ? 'playsinline=0&amp;' :  ''}h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479`}
+              url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
               playing={playing}
               controls={false}
               playsinline={playInline}

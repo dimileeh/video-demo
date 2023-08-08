@@ -29,6 +29,7 @@ const VideoContainer = ({ open, handleClose }) => {
   const [mouseMoving, setMouseMoving] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [playInline, setPlayInline] = useState(true);
+  const [url, setUrl] = useState('https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479')
 
   const [videoChapters, setVideoChapters] = useState([]);
 
@@ -151,6 +152,8 @@ const VideoContainer = ({ open, handleClose }) => {
     playerRef.current.seekTo(parseFloat(value));
   }
 
+  console.log("DEBUG: ", playInline, url)
+
   const handleClickFullScreen = () => {
     if (isIOS) {
       console.log("DEBUG: FULLSCREEN IOS")
@@ -158,7 +161,8 @@ const VideoContainer = ({ open, handleClose }) => {
       // if (!!vimeoPlayer) {
       //   vimeoPlayer.
       // }
-      setPlayInline(false)
+      setPlayInline((value) => !value)
+      setUrl(`https://player.vimeo.com/video/851579304?playsinline=${playInline ? 1 : 0}&h=79552e35bc&title=0&byline=0&portrait=0&speed=0&color=cf003d&muted=1&autoplay=1&autopause=0&pip=0&controls=0&app_id=122963`)
     }
 
     if (screenfull.isEnabled) {
@@ -207,7 +211,7 @@ const VideoContainer = ({ open, handleClose }) => {
             }}>
             <ReactPlayer
               ref={playerRef}
-              url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+              url={url}
               playing={playing}
               controls={false}
               playsinline={playInline}

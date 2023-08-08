@@ -89,7 +89,7 @@ const VideoControls = ({
 
           <Box sx={{ width: '100%', padding: isMobileDevice ? 0 : '56.25% 0 0 0', position: 'relative', mb: isMobileDevice ? 0 : '10%',
           height: isMobileDevice ? '100%' : 'auto',
-          maxWidth: !isMobileDevice ? 'calc(75vh * 16 / 9)' : 'auto',
+          maxWidth: !isMobileDevice ? 'calc(75vh * 16 / 9)' : 'none',
           maxHeight: '100vh', }}>
             <div style={{
               padding: 7,

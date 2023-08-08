@@ -217,7 +217,7 @@ const VideoContainer = ({open, handleClose}) => {
               playsinline={true}
               width={'100%'}
               height={'auto'}
-              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: 'calc(75vh * 16 / 9)' }}
+              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)` }}
               muted={muted}
               volume={volume}
               onPlay={handlePlay}
@@ -289,8 +289,8 @@ const VideoContainer = ({open, handleClose}) => {
                 disableRipple
                 sx={{ color: theme.palette.common.white, width: '100%', height: '100%',
                 maxHeight: '75vh',
-                maxWidth: 'calc(75vh * 16 / 9)',
-                padding: 'calc(75vh * 4 / 9) 0',
+                maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)`,
+                padding: `calc(${isFullScreen ? 100 : 75}vh * 4 / 9) 0`,
                 cursor: 'default' }}>
                 {playing ? <PauseIcon sx={{ fontSize: '4rem' }} /> : <PlayArrowIcon sx={{ fontSize: '6rem' }} />}
               </IconButton>
@@ -300,8 +300,8 @@ const VideoContainer = ({open, handleClose}) => {
                 disableRipple
                 sx={{ opacity: 0, position: 'absolute', color: theme.palette.common.white, width: '100%', height: '100%',
                 maxHeight: '75vh',
-                maxWidth: 'calc(75vh * 16 / 9)',
-                padding: 'calc(75vh * 4 / 9) 0',
+                maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)`,
+                padding: `calc(${isFullScreen ? 100 : 75}vh * 4 / 9) 0`,
                 cursor: 'default' }}>
                 <PauseIcon sx={{ fontSize: '4rem' }} />
               </IconButton>

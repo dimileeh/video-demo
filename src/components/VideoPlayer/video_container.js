@@ -156,9 +156,15 @@ const VideoContainer = ({open, handleClose}) => {
         screenfull.exit();
       } else {
         if (isIOS) {
-          if (playerRef.current.webkitEnterFullscreen) {
-            playerRef.current.webkitEnterFullscreen();
-            playerRef.current.play()
+          const videoWrapper = containerRef.current;
+          if (videoWrapper.requestFullscreen) {
+            videoWrapper.requestFullscreen();
+          } else if (videoWrapper.mozRequestFullScreen) {
+            videoWrapper.mozRequestFullScreen();
+          } else if (videoWrapper.webkitEnterFullscreen) {
+            videoWrapper.webkitEnterFullscreen();
+          } else if (videoWrapper.msRequestFullscreen) {
+            videoWrapper.msRequestFullscreen();
           }
         }
         else {

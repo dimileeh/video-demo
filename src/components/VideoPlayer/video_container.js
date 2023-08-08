@@ -161,6 +161,7 @@ const VideoContainer = ({open, handleClose}) => {
           setPlayInline(false)
           setPlaying(true)
           setMuted(false)
+          screenfull.request(findDOMNode(playerRef.current))
         }
         else {
           screenfull.request();
@@ -169,17 +170,11 @@ const VideoContainer = ({open, handleClose}) => {
     }
   }
 
-  React.useEffect(() => {
-    screenfull.request(findDOMNode(playerRef.current))
-  }, [playInline])
-
   const handleDuration = (duration) => {
     setDuration(duration);
   }
 
-
   const theme = useTheme();
-
 
   return (
     <Dialog

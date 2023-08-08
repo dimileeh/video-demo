@@ -156,16 +156,7 @@ const VideoContainer = ({open, handleClose}) => {
         screenfull.exit();
       } else {
         if (isIOS) {
-          const videoWrapper = containerRef.current;
-          if (videoWrapper.requestFullscreen) {
-            videoWrapper.requestFullscreen();
-          } else if (videoWrapper.mozRequestFullScreen) {
-            videoWrapper.mozRequestFullScreen();
-          } else if (videoWrapper.webkitEnterFullscreen) {
-            videoWrapper.webkitEnterFullscreen();
-          } else if (videoWrapper.msRequestFullscreen) {
-            videoWrapper.msRequestFullscreen();
-          }
+          screenfull.request(findDOMNode(playerRef.current))
         }
         else {
           screenfull.request();
@@ -216,7 +207,7 @@ const VideoContainer = ({open, handleClose}) => {
               url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
               playing={playing}
               controls={false}
-              playsinline={true}
+              playsinline={isIOS ? false : true}
               width={'100%'}
               height={'auto'}
               style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)` }}
@@ -232,7 +223,7 @@ const VideoContainer = ({open, handleClose}) => {
                     responsive: true,
                     pip: false,
                     speed: false,
-                    playsinline: true,
+                    playsinline: isIOS ? false : true,
                     byline: false,
                     color: 'cf003d',
                     muted: muted,

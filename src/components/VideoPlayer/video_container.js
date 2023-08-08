@@ -157,6 +157,7 @@ const VideoContainer = ({open, handleClose}) => {
       setPlayInline(false)
       setPlaying(true)
       setMuted(false)
+      screenfull.request(findDOMNode(playerRef.current))
     }
 
     if (screenfull.isEnabled) {

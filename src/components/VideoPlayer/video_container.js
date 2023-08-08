@@ -156,7 +156,10 @@ const VideoContainer = ({open, handleClose}) => {
         screenfull.exit();
       } else {
         if (isIOS) {
-          screenfull.request(findDOMNode(playerRef.current))
+          if (playerRef.current.webkitEnterFullscreen) {
+            playerRef.current.webkitEnterFullscreen();
+            playerRef.current.play()
+          }
         }
         else {
           screenfull.request();

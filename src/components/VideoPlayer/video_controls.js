@@ -87,14 +87,18 @@ const VideoControls = ({
             height: isMobileDevice ? '100%' : 'auto',
           }}>
 
-          <Box sx={{ width: '100%', padding: isMobileDevice ? 0 : '56.25% 0 0 0', position: 'relative', mb: isMobileDevice ? 0 : '10%', height: isMobileDevice ? '100%' : 'auto' }}>
+          <Box sx={{ width: '100%', padding: isMobileDevice ? 0 : '56.25% 0 0 0', position: 'relative', mb: isMobileDevice ? 0 : '10%',
+          height: isMobileDevice ? '100%' : 'auto',
+          maxWidth: !isMobileDevice ? 'calc(75vh * 16 / 9)' : 'auto',
+          maxHeight: '100vh', }}>
             <div style={{
               padding: 7,
               borderRadius: 16,
               zIndex: 1,
               backgroundColor: theme.palette.grey[900],
               backdropFilter: 'blur(40px)',
-              position: 'absolute', top: isMobileDevice ? 10 : '15%', left: 10
+              position: 'absolute', top: isMobileDevice ? 10 : '15%', left: 10,
+              opacity: 0.9,
             }}>
               <PlayerButton aria-label="close" size="small" onClick={handleClose}>
                 <CloseIcon fontSize="inherit" />
@@ -107,7 +111,8 @@ const VideoControls = ({
               zIndex: 1,
               backgroundColor: theme.palette.grey[900],
               backdropFilter: 'blur(40px)',
-              position: 'absolute', top: isMobileDevice ? 10 : '15%', right: 10
+              position: 'absolute', top: isMobileDevice ? 10 : '15%', right: 10,
+              opacity: 0.9,
             }}>
               <PlayerButton aria-label="transcript" size="small">
                 <ArticleIcon fontSize="inherit" />
@@ -136,6 +141,9 @@ const VideoControls = ({
                   zIndex: 1,
                   backgroundColor: theme.palette.grey[900],
                   backdropFilter: 'blur(40px)',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  opacity: 0.9,
                 }}>
                 <Box
                   sx={{
@@ -176,6 +184,7 @@ const VideoControls = ({
                       color: '#cf003d',
                       mx: 1,
                       height: 4,
+                      width: '94%',
                       '&:hover': {
                         '& .MuiSlider-thumb': {
                           height: 13,

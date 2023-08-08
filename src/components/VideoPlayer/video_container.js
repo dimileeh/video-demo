@@ -217,7 +217,7 @@ const VideoContainer = ({open, handleClose}) => {
               playsinline={true}
               width={'100%'}
               height={'auto'}
-              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxHeight: '100vh' }}
+              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: 'calc(75vh * 16 / 9)' }}
               muted={muted}
               volume={volume}
               onPlay={handlePlay}
@@ -287,14 +287,22 @@ const VideoContainer = ({open, handleClose}) => {
             <Fade in={!playing}>
               <IconButton onClick={handlePlayPause}
                 disableRipple
-                sx={{ color: theme.palette.common.white, width: '100%', height: '100%', padding: '25% 0', cursor: 'default' }}>
+                sx={{ color: theme.palette.common.white, width: '100%', height: '100%',
+                maxHeight: '75vh',
+                maxWidth: 'calc(75vh * 16 / 9)',
+                padding: 'calc(75vh * 4 / 9) 0',
+                cursor: 'default' }}>
                 {playing ? <PauseIcon sx={{ fontSize: '4rem' }} /> : <PlayArrowIcon sx={{ fontSize: '6rem' }} />}
               </IconButton>
             </Fade>
             {!!playing &&
               <IconButton onClick={handlePlayPause}
                 disableRipple
-                sx={{ opacity: 0, position: 'absolute', color: theme.palette.common.white, width: '100%', height: '100%', padding: '25% 0', cursor: 'default' }}>
+                sx={{ opacity: 0, position: 'absolute', color: theme.palette.common.white, width: '100%', height: '100%',
+                maxHeight: '75vh',
+                maxWidth: 'calc(75vh * 16 / 9)',
+                padding: 'calc(75vh * 4 / 9) 0',
+                cursor: 'default' }}>
                 <PauseIcon sx={{ fontSize: '4rem' }} />
               </IconButton>
             }

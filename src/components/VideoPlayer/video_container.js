@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
 
-const VideoContainer = ({open, handleClose}) => {
+const VideoContainer = ({ open, handleClose }) => {
 
   const [playing, setPlaying] = useState(true);
   const [volume, setVolume] = useState(1);
@@ -61,13 +61,13 @@ const VideoContainer = ({open, handleClose}) => {
     const vimeoPlayer = playerRef.current?.getInternalPlayer()
     if (!!vimeoPlayer) {
       vimeoPlayer.getChapters()
-      .then(function(chapters) {
-        // `chapters` indicates an array of chapter objects
-        // [{startTime: 0, title: 'Chapter 1', index: 1}]
-        setVideoChapters(chapters)
-      }).catch(function(error) {
-        // An error occurred
-      });
+        .then(function (chapters) {
+          // `chapters` indicates an array of chapter objects
+          // [{startTime: 0, title: 'Chapter 1', index: 1}]
+          setVideoChapters(chapters)
+        }).catch(function (error) {
+          // An error occurred
+        });
     }
 
   }, [playerRef.current])
@@ -159,15 +159,13 @@ const VideoContainer = ({open, handleClose}) => {
       //   vimeoPlayer.
       // }
       setPlayInline(false)
-      setPlaying(true)
-      setMuted(false)
     }
 
     if (screenfull.isEnabled) {
       if (screenfull.isFullscreen) {
         screenfull.exit();
       } else {
-          screenfull.request();
+        screenfull.request();
       }
     }
   }
@@ -187,7 +185,7 @@ const VideoContainer = ({open, handleClose}) => {
     >
       <Box
         sx={(theme) => ({ backgroundColor: theme.palette.common.black, height: '100%', display: "grid" })}
-      onMouseMove={setMouseMove}
+        onMouseMove={setMouseMove}
       >
         {/* Player Begins */}
         <Grid container
@@ -207,69 +205,36 @@ const VideoContainer = ({open, handleClose}) => {
               placeItems: "center",
               display: "grid",
             }}>
-            {!!playInline ?
-              <ReactPlayer
-                ref={playerRef}
-                url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                playing={playing}
-                controls={false}
-                playsinline={true}
-                width={'100%'}
-                height={'auto'}
-                style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)` }}
-                muted={muted}
-                volume={volume}
-                onPlay={handlePlay}
-                onPause={handlePause}
-                onProgress={handleProgress}
-                onDuration={handleDuration}
-                config={{
-                  vimeo: {
-                    playerOptions: {
-                      responsive: true,
-                      pip: false,
-                      speed: false,
-                      playsinline: true,
-                      byline: false,
-                      color: 'cf003d',
-                      muted: muted,
-                      controls: false,
-                    }
-                  },
-                }}
-              />
-              :
-              <ReactPlayer
-                ref={playerRef}
-                url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                playing={playing}
-                controls={false}
-                playsinline={false}
-                width={'100%'}
-                height={'auto'}
-                style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)` }}
-                muted={muted}
-                volume={volume}
-                onPlay={handlePlay}
-                onPause={handlePause}
-                onProgress={handleProgress}
-                onDuration={handleDuration}
-                config={{
-                  vimeo: {
-                    playerOptions: {
-                      responsive: true,
-                      pip: false,
-                      speed: false,
-                      playsinline: false,
-                      byline: false,
-                      color: 'cf003d',
-                      muted: muted,
-                      controls: false,
-                    }
-                  },
-                }}
-              />
-            }
+            <ReactPlayer
+              ref={playerRef}
+              url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+              playing={playing}
+              controls={false}
+              playsinline={playInline}
+              width={'100%'}
+              height={'auto'}
+              style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)` }}
+              muted={muted}
+              volume={volume}
+              onPlay={handlePlay}
+              onPause={handlePause}
+              onProgress={handleProgress}
+              onDuration={handleDuration}
+              config={{
+                vimeo: {
+                  playerOptions: {
+                    responsive: true,
+                    pip: false,
+                    speed: false,
+                    // playsinline: playInline,
+                    byline: false,
+                    color: 'cf003d',
+                    muted: muted,
+                    controls: false,
+                  }
+                },
+              }}
+            />
 
           </Grid>
 
@@ -308,32 +273,36 @@ const VideoContainer = ({open, handleClose}) => {
           }}
         >
           <Grid item xs={12} sm={isFullScreen ? 12 : 10} md={isFullScreen ? 12 : 8} xl={8}
-          sx={{
-            gridArea: "1/1",
-            position: "relative",
-            // This centers the other elements inside the hero component
-            placeItems: "center",
-            display: "grid",
-          }}>
+            sx={{
+              gridArea: "1/1",
+              position: "relative",
+              // This centers the other elements inside the hero component
+              placeItems: "center",
+              display: "grid",
+            }}>
             <Fade in={!playing}>
               <IconButton onClick={handlePlayPause}
                 disableRipple
-                sx={{ color: theme.palette.common.white, width: '100%', height: '100%',
-                maxHeight: '75vh',
-                maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)`,
-                padding: `calc(${isFullScreen ? 100 : 75}vh * 4 / 9) 0`,
-                cursor: 'default' }}>
+                sx={{
+                  color: theme.palette.common.white, width: '100%', height: '100%',
+                  maxHeight: '75vh',
+                  maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)`,
+                  padding: `calc(${isFullScreen ? 100 : 75}vh * 4 / 9) 0`,
+                  cursor: 'default'
+                }}>
                 {playing ? <PauseIcon sx={{ fontSize: '4rem' }} /> : <PlayArrowIcon sx={{ fontSize: '6rem' }} />}
               </IconButton>
             </Fade>
             {!!playing &&
               <IconButton onClick={handlePlayPause}
                 disableRipple
-                sx={{ opacity: 0, position: 'absolute', color: theme.palette.common.white, width: '100%', height: '100%',
-                maxHeight: '75vh',
-                maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)`,
-                padding: `calc(${isFullScreen ? 100 : 75}vh * 4 / 9) 0`,
-                cursor: 'default' }}>
+                sx={{
+                  opacity: 0, position: 'absolute', color: theme.palette.common.white, width: '100%', height: '100%',
+                  maxHeight: '75vh',
+                  maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)`,
+                  padding: `calc(${isFullScreen ? 100 : 75}vh * 4 / 9) 0`,
+                  cursor: 'default'
+                }}>
                 <PauseIcon sx={{ fontSize: '4rem' }} />
               </IconButton>
             }

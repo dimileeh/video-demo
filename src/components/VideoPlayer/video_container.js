@@ -28,6 +28,7 @@ const VideoContainer = ({open, handleClose}) => {
   const [seeking, setSeeking] = useState(false);
   const [mouseMoving, setMouseMoving] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [playInline, setPlayInline] = useState(true);
 
   const [videoChapters, setVideoChapters] = useState([]);
 
@@ -156,7 +157,9 @@ const VideoContainer = ({open, handleClose}) => {
         screenfull.exit();
       } else {
         if (isIOS) {
-          screenfull.request(findDOMNode(playerRef.current))
+          setPlayInline(false)
+          setPlaying(true)
+          setMuted(false)
         }
         else {
           screenfull.request();
@@ -207,7 +210,7 @@ const VideoContainer = ({open, handleClose}) => {
               url="https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
               playing={playing}
               controls={false}
-              playsinline={isIOS ? false : true}
+              playsinline={playInline}
               width={'100%'}
               height={'auto'}
               style={{ borderRadius: 20, overflow: 'hidden', opacity: playing ? 1 : 0.7, maxWidth: `calc(${isFullScreen ? 100 : 75}vh * 16 / 9)` }}
@@ -223,7 +226,7 @@ const VideoContainer = ({open, handleClose}) => {
                     responsive: true,
                     pip: false,
                     speed: false,
-                    playsinline: isIOS ? false : true,
+                    playsinline: playInline,
                     byline: false,
                     color: 'cf003d',
                     muted: muted,

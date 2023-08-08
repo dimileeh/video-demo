@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
+import { findDOMNode } from 'react-dom'
 
 import { Grid, Box, IconButton, Fade, Dialog } from "@mui/material"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -15,19 +16,6 @@ import VideoControls from "./video_controls";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
-
-// function iOS() {
-//   return [
-//     'iPad Simulator',
-//     'iPhone Simulator',
-//     'iPod Simulator',
-//     'iPad',
-//     'iPhone',
-//     'iPod'
-//   ].includes(navigator?.userAgentData?.platform)
-//     // iPad on iOS 13 detection
-//     || (navigator?.userAgent.includes("Mac") && "ontouchend" in document)
-// }
 
 const VideoContainer = ({open, handleClose}) => {
 
@@ -167,7 +155,12 @@ const VideoContainer = ({open, handleClose}) => {
       if (screenfull.isFullscreen) {
         screenfull.exit();
       } else {
-        screenfull.request();
+        if (isIOS) {
+          screenfull.request(findDOMNode(playerRef.current))
+        }
+        else {
+          screenfull.request();
+        }
       }
     }
   }

@@ -158,6 +158,7 @@ const VideoContainer = ({ open, handleClose }) => {
     if (isIOS) {
       console.log("DEBUG: FULLSCREEN IOS")
       const videoElement = playerRef.current.getInternalPlayer()
+      console.log("DEBUG PLAYER: ", videoElement, videoElement.getVideoUrl().then((url) => url))
       console.log("DEBUG INLINE: ", videoElement.playsInline)
       console.log("DEBUG PRESENT: ", videoElement.webkitSupportsPresentationMode)
       console.log("DEBUG FULL: ", videoElement.webkitSupportsFullscreen)

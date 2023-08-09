@@ -29,7 +29,7 @@ const VideoContainer = ({ open, handleClose }) => {
   const [mouseMoving, setMouseMoving] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [playInline, setPlayInline] = useState(true);
-  const [url, setUrl] = useState('https://player.vimeo.com/video/851579304?h=79552e35bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479')
+  const [url, setUrl] = useState('https://player.vimeo.com/video/851579304?h=79552e35bc&badge=0&autopause=0&player_id=0&app_id=58479')
 
   const [videoChapters, setVideoChapters] = useState([]);
 
@@ -152,26 +152,31 @@ const VideoContainer = ({ open, handleClose }) => {
     playerRef.current.seekTo(parseFloat(value));
   }
 
-  console.log("DEBUG: ", playInline, url)
+  // console.log("DEBUG: ", playInline, url)
 
   const handleClickFullScreen = () => {
     if (isIOS) {
       console.log("DEBUG: FULLSCREEN IOS")
+      const videoElement = findDOMNode(playerRef.current)
+      console.log("DEBUG INLINE: ", videoElement.playsInline)
+      console.log("DEBUG PRESENT: ", videoElement.webkitSupportsPresentationMode)
+      console.log("DEBUG FULL: ", videoElement.webkitSupportsFullscreen)
+
       // const vimeoPlayer = playerRef.current?.getInternalPlayer()
       // if (!!vimeoPlayer) {
       //   vimeoPlayer.
       // }
-      setPlayInline((value) => !value)
-      setUrl(`https://player.vimeo.com/video/851579304?playsinline=${playInline ? 1 : 0}&h=79552e35bc&title=0&byline=0&portrait=0&speed=0&color=cf003d&muted=1&autoplay=1&autopause=0&pip=0&controls=0&app_id=122963`)
+      // setPlayInline((value) => !value)
+      // setUrl(`https://player.vimeo.com/video/851579304?playsinline=${playInline ? 1 : 0}&h=79552e35bc&title=0&byline=0&portrait=0&speed=0&color=cf003d&muted=1&autoplay=1&autopause=0&pip=0&controls=0&app_id=122963`)
     }
 
-    if (screenfull.isEnabled) {
-      if (screenfull.isFullscreen) {
-        screenfull.exit();
-      } else {
-        screenfull.request();
-      }
-    }
+    // if (screenfull.isEnabled) {
+    //   if (screenfull.isFullscreen) {
+    //     screenfull.exit();
+    //   } else {
+    //     screenfull.request();
+    //   }
+    // }
   }
 
   const handleDuration = (duration) => {

@@ -156,28 +156,18 @@ const VideoContainer = ({ open, handleClose }) => {
 
   const handleClickFullScreen = () => {
     if (isIOS) {
-      console.log("DEBUG: FULLSCREEN IOS")
-      const videoElement = playerRef.current.getInternalPlayer()
-      console.log("DEBUG PLAYER: ", videoElement, videoElement.getVideoUrl().then((url) => url))
-      console.log("DEBUG INLINE: ", videoElement.playsInline)
-      console.log("DEBUG PRESENT: ", videoElement.webkitSupportsPresentationMode)
-      console.log("DEBUG FULL: ", videoElement.webkitSupportsFullscreen)
-
-      // const vimeoPlayer = playerRef.current?.getInternalPlayer()
-      // if (!!vimeoPlayer) {
-      //   vimeoPlayer.
-      // }
-      // setPlayInline((value) => !value)
-      // setUrl(`https://player.vimeo.com/video/851579304?playsinline=${playInline ? 1 : 0}&h=79552e35bc&title=0&byline=0&portrait=0&speed=0&color=cf003d&muted=1&autoplay=1&autopause=0&pip=0&controls=0&app_id=122963`)
+      setPlayInline((value) => !value)
+      setUrl(`https://player.vimeo.com/video/851579304?playsinline=${playInline ? 1 : 0}&h=79552e35bc&title=0&byline=0&portrait=0&speed=0&color=cf003d&muted=1&autoplay=1&autopause=0&pip=0&controls=0&app_id=122963`)
+      setPlaying(true)
     }
 
-    // if (screenfull.isEnabled) {
-    //   if (screenfull.isFullscreen) {
-    //     screenfull.exit();
-    //   } else {
-    //     screenfull.request();
-    //   }
-    // }
+    if (screenfull.isEnabled) {
+      if (screenfull.isFullscreen) {
+        screenfull.exit();
+      } else {
+        screenfull.request();
+      }
+    }
   }
 
   const handleDuration = (duration) => {

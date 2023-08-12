@@ -32,6 +32,7 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
   const [url, setUrl] = useState(videoType === 'vimeo' ? videoURL : videoURL.hls)
 
   const [videoChapters, setVideoChapters] = useState([]);
+  const [videoTextTracks, setVideoTextTracks] = useState([]);
 
   const playerRef = React.useRef(null);
   const containerRef = React.useRef(null);
@@ -67,6 +68,16 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
             // `chapters` indicates an array of chapter objects
             // [{startTime: 0, title: 'Chapter 1', index: 1}]
             setVideoChapters(chapters)
+          }).catch(function (error) {
+            // An error occurred
+          });
+      }
+
+      if (!!vimeoPlayer && vimeoPlayer.getTextTracks) {
+        // https://developer.vimeo.com/player/sdk/reference#get-the-text-tracks-of-a-video
+        vimeoPlayer.getTextTracks()
+          .then(function (tracks) {
+            setVideoTextTracks(tracks)
           }).catch(function (error) {
             // An error occurred
           });

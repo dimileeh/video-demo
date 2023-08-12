@@ -163,6 +163,7 @@ const IndexPage = () => {
           <VideoContainer open={open} handleClose={handleClose}
             // videoType="vimeo"
             // videoURL='https://player.vimeo.com/video/851579304?h=79552e35bc&badge=0&autopause=0&player_id=0&app_id=58479'
+            videoType='cdn'
             videoURL = 'https://cdn.revelio.io/users/4NQveonlXZPMQ8IzrSAwbQKiPUh2/tests/OAQpkczAv0C4H2yudngd/videos/h264_master.m3u8'
             // videoURL = 'https://cdn.revelio.io/users/4NQveonlXZPMQ8IzrSAwbQKiPUh2/tests/OAQpkczAv0C4H2yudngd/videos/h264.mpd'
            />

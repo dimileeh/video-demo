@@ -156,18 +156,23 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
 
   const handleClickFullScreen = () => {
     if (isIOS) {
-      setPlayInline((value) => !value)
+      // setPlayInline((value) => !value)
       // setUrl((value) => `${value}&playsinline=${playInline? 1 : 0}`)
-      setPlaying(true)
+      const videoElement = playerRef.current
+      console.log("DEBUG: ", videoElement)
+      console.log("DEBUG INLINE: ", videoElement.playsInline)
+      console.log("DEBUG PRESENT: ", videoElement.webkitSupportsPresentationMode)
+      console.log("DEBUG FULL: ", videoElement.webkitSupportsFullscreen)
+      // setPlaying(true)
     }
 
-    if (screenfull.isEnabled) {
-      if (screenfull.isFullscreen) {
-        screenfull.exit();
-      } else {
-        screenfull.request();
-      }
-    }
+    // if (screenfull.isEnabled) {
+    //   if (screenfull.isFullscreen) {
+    //     screenfull.exit();
+    //   } else {
+    //     screenfull.request();
+    //   }
+    // }
   }
 
   const handleDuration = (duration) => {

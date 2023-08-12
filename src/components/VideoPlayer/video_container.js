@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { isIOS } from 'react-device-detect';
 
-import ReactPlayer from 'react-player/vimeo'
+import ReactPlayer from 'react-player/lazy'
 import screenfull from 'screenfull'
 import VideoControls from "./video_controls";
 
@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;
 });
 
-const VideoContainer = ({ open, handleClose }) => {
+const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
 
   const [playing, setPlaying] = useState(true);
   const [volume, setVolume] = useState(1);
@@ -29,7 +29,7 @@ const VideoContainer = ({ open, handleClose }) => {
   const [mouseMoving, setMouseMoving] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [playInline, setPlayInline] = useState(true);
-  const [url, setUrl] = useState('https://player.vimeo.com/video/851579304?h=79552e35bc&badge=0&autopause=0&player_id=0&app_id=58479')
+  const [url, setUrl] = useState(videoURL)
 
   const [videoChapters, setVideoChapters] = useState([]);
 
@@ -60,7 +60,7 @@ const VideoContainer = ({ open, handleClose }) => {
 
   React.useEffect(() => {
     const vimeoPlayer = playerRef.current?.getInternalPlayer()
-    if (!!vimeoPlayer) {
+    if (!!vimeoPlayer && vimeoPlayer.getChapters) {
       vimeoPlayer.getChapters()
         .then(function (chapters) {
           // `chapters` indicates an array of chapter objects
@@ -157,7 +157,7 @@ const VideoContainer = ({ open, handleClose }) => {
   const handleClickFullScreen = () => {
     if (isIOS) {
       setPlayInline((value) => !value)
-      setUrl(`https://player.vimeo.com/video/851579304?playsinline=${playInline ? 1 : 0}&h=79552e35bc&title=0&byline=0&portrait=0&speed=0&color=cf003d&muted=1&autoplay=1&autopause=0&pip=0&controls=0&app_id=122963`)
+      // setUrl((value) => `${value}&playsinline=${playInline? 1 : 0}`)
       setPlaying(true)
     }
 
@@ -175,6 +175,21 @@ const VideoContainer = ({ open, handleClose }) => {
   }
 
   const theme = useTheme();
+
+  const videoConfig = videoType === 'vimeo' ? {
+    vimeo: {
+      playerOptions: {
+        responsive: true,
+        pip: false,
+        speed: false,
+        // playsinline: playInline,
+        byline: false,
+        color: 'cf003d',
+        muted: muted,
+        controls: false,
+      }
+    }
+  } : {};
 
   return (
     <Dialog
@@ -220,20 +235,7 @@ const VideoContainer = ({ open, handleClose }) => {
               onPause={handlePause}
               onProgress={handleProgress}
               onDuration={handleDuration}
-              config={{
-                vimeo: {
-                  playerOptions: {
-                    responsive: true,
-                    pip: false,
-                    speed: false,
-                    // playsinline: playInline,
-                    byline: false,
-                    color: 'cf003d',
-                    muted: muted,
-                    controls: false,
-                  }
-                },
-              }}
+              config={videoConfig}
             />
 
           </Grid>
@@ -245,6 +247,7 @@ const VideoContainer = ({ open, handleClose }) => {
         <VideoControls
           duration={duration}
           played={played}
+          loaded={loaded}
           playing={playing}
           seeking={seeking}
           muted={muted}
@@ -281,7 +284,7 @@ const VideoContainer = ({ open, handleClose }) => {
               display: "grid",
             }}>
             <Fade in={!playing}>
-              <IconButton onClick={handlePlayPause}
+              <IconButton onClick={handlePlayPause} //onTouchStart={handlePlayPause}
                 disableRipple
                 sx={{
                   color: theme.palette.common.white, width: '100%', height: '100%',
@@ -294,7 +297,7 @@ const VideoContainer = ({ open, handleClose }) => {
               </IconButton>
             </Fade>
             {!!playing &&
-              <IconButton onClick={handlePlayPause}
+              <IconButton onClick={handlePlayPause} //onTouchStart={handlePlayPause}
                 disableRipple
                 sx={{
                   opacity: 0, position: 'absolute', color: theme.palette.common.white, width: '100%', height: '100%',

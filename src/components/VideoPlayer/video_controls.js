@@ -14,6 +14,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
 import ArticleIcon from '@mui/icons-material/Article';
 
+import { VideoProgressBar } from './components';
+
 import { useDeviceSelectors } from 'react-device-detect';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -47,7 +49,7 @@ const TinyText = styled(Typography)(({ theme }) => ({
 }));
 
 const VideoControls = ({
-  duration, played, seeking, playing, muted, isFullScreen,
+  duration, played, loaded, seeking, playing, muted, isFullScreen,
   mouseMoving, handlePlayPause, handleToggleMuted, handleClickFullScreen, handleClose,
   handleRewind10Seconds, handleFastForward10Seconds, handleSeekChange, handleSeekMouseUp,
   containerRef,
@@ -169,7 +171,14 @@ const VideoControls = ({
                     </Fade>
                   </Hidden>
 
-                  <Slider
+                  <VideoProgressBar
+                    played={played}
+                    loaded={loaded}
+                    handleSeekChange={handleSeekChange}
+                    handleSeekMouseUp={handleSeekMouseUp}
+                  />
+
+                  {/* <Slider
                     aria-label="time-indicator"
                     size="small"
                     value={played}
@@ -198,10 +207,7 @@ const VideoControls = ({
                           boxShadow: '0 2px 12px 0 rgba(0,0,0,0.4)',
                         },
                         '&:hover, &.Mui-focusVisible': {
-                          boxShadow: `0px 0px 0px 8px ${theme.palette.mode === 'dark'
-                            ? 'rgb(255 255 255 / 16%)'
-                            : 'rgb(0 0 0 / 16%)'
-                            }`,
+                          boxShadow: '0px 0px 0px 8px rgb(255 255 255 / 16%)',
                         },
                         '&.Mui-active': {
                           width: 15,
@@ -225,7 +231,8 @@ const VideoControls = ({
 
                       },
                     }}
-                  />
+                  /> */}
+
                   <Hidden smUp>
                   <Grid item
                     sx={{

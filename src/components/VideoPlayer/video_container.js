@@ -172,7 +172,7 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
       // setUrl((value) => `${value}&playsinline=${playInline? 1 : 0}`)
       if (videoType === 'cdn') {
         const videoElement = findDOMNode(playerRef.current).querySelector('video')
-        if (videoElement.webkitSupportsFullscreen) {
+        if (videoElement?.webkitSupportsFullscreen) {
           videoElement.webkitEnterFullscreen()
         }
       }

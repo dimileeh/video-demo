@@ -141,8 +141,8 @@ function VideoProgressBar(props) {
     setMouseMove(true)
     if (e.buttons === 1 || e.type === 'touchmove') {
       const rect = e.currentTarget.getBoundingClientRect();
-      let clientX = e.touches? e.touches[0].clientX : e.clientX;
-      const x = (clientX - rect.left) / rect.width;
+      let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const x = Math.round((clientX - rect.left) / rect.width * 100) / 100;
       if (x >= 0 && x <= 1) {
         handleSeekChange(x)
         setValue(x)

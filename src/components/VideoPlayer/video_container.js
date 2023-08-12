@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { isIOS } from 'react-device-detect';
 
-import ReactPlayer from 'react-player/lazy'
+import ReactPlayer from 'react-player'
 import screenfull from 'screenfull'
 import VideoControls from "./video_controls";
 
@@ -29,7 +29,7 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
   const [mouseMoving, setMouseMoving] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [playInline, setPlayInline] = useState(true);
-  const [url, setUrl] = useState(videoURL)
+  const [url, setUrl] = useState(videoType === 'vimeo' ? videoURL : videoURL.hls)
 
   const [videoChapters, setVideoChapters] = useState([]);
 
@@ -59,19 +59,20 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
   }, [])
 
   React.useEffect(() => {
-    const vimeoPlayer = playerRef.current?.getInternalPlayer()
-    if (!!vimeoPlayer && vimeoPlayer.getChapters) {
-      vimeoPlayer.getChapters()
-        .then(function (chapters) {
-          // `chapters` indicates an array of chapter objects
-          // [{startTime: 0, title: 'Chapter 1', index: 1}]
-          setVideoChapters(chapters)
-        }).catch(function (error) {
-          // An error occurred
-        });
+    if (videoType === 'vimeo') {
+      const vimeoPlayer = playerRef.current?.getInternalPlayer()
+      if (!!vimeoPlayer && vimeoPlayer.getChapters) {
+        vimeoPlayer.getChapters()
+          .then(function (chapters) {
+            // `chapters` indicates an array of chapter objects
+            // [{startTime: 0, title: 'Chapter 1', index: 1}]
+            setVideoChapters(chapters)
+          }).catch(function (error) {
+            // An error occurred
+          });
+      }
     }
-
-  }, [playerRef.current])
+  }, [playerRef.current, videoType])
 
   const onDialogClose = () => {
     // setPlaying(true);
@@ -158,21 +159,22 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
     if (isIOS) {
       // setPlayInline((value) => !value)
       // setUrl((value) => `${value}&playsinline=${playInline? 1 : 0}`)
-      const videoElement = playerRef.current
-      console.log("DEBUG: ", videoElement)
-      console.log("DEBUG INLINE: ", videoElement.playsInline)
-      console.log("DEBUG PRESENT: ", videoElement.webkitSupportsPresentationMode)
-      console.log("DEBUG FULL: ", videoElement.webkitSupportsFullscreen)
+      if (videoType === 'cdn') {
+        const videoElement = findDOMNode(playerRef.current).querySelector('video')
+        if (videoElement.webkitSupportsFullscreen) {
+          videoElement.webkitEnterFullscreen()
+        }
+      }
       // setPlaying(true)
+    } else {
+      if (screenfull.isEnabled) {
+        if (screenfull.isFullscreen) {
+          screenfull.exit();
+        } else {
+          screenfull.request();
+        }
+      }
     }
-
-    // if (screenfull.isEnabled) {
-    //   if (screenfull.isFullscreen) {
-    //     screenfull.exit();
-    //   } else {
-    //     screenfull.request();
-    //   }
-    // }
   }
 
   const handleDuration = (duration) => {
@@ -240,6 +242,14 @@ const VideoContainer = ({ open, handleClose, videoURL, videoType }) => {
               onPause={handlePause}
               onProgress={handleProgress}
               onDuration={handleDuration}
+              onError={(error) => {
+                console.log("Error loading video: ", error.message, error.code, error)
+                if (videoType === 'cdn') {
+                  console.log("Falling back to DASH")
+                  setUrl(videoURL.dash)
+                }
+              }
+              }
               config={videoConfig}
             />
 

@@ -35,8 +35,10 @@ const PlayerButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   borderRadius: '10px',
   padding: '6px 6px',
-  '&:hover': {
-    backgroundColor: theme.palette.grey[700],
+  '@media (hover: hover)': {
+    '&:hover': {
+      backgroundColor: theme.palette.grey[700],
+    }
   }
 }));
 

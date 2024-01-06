@@ -1,7 +1,7 @@
 import * as React from "react"
 import { styled, useTheme } from '@mui/material/styles';
 
-import { Grid, Box, IconButton, Typography, Fade, Slider, Slide, Hidden } from "@mui/material"
+import { Grid, Box, IconButton, Typography, Fade, Slide, Hidden } from "@mui/material"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import Replay10Icon from '@mui/icons-material/Replay10';
@@ -14,7 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
 import ArticleIcon from '@mui/icons-material/Article';
 
-import { VideoProgressBar } from './components';
+import { VideoProgressBar } from './Components';
 
 import { useDeviceSelectors } from 'react-device-detect';
 import useMediaQuery from '@mui/material/useMediaQuery';

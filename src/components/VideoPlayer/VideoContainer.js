@@ -11,7 +11,7 @@ import { isIOS } from 'react-device-detect';
 
 import ReactPlayer from 'react-player'
 import screenfull from 'screenfull'
-import VideoControls from "./video_controls";
+import VideoControls from "./VideoControls";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} />;

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useState } from "react";
 import { Container, Grid, Typography, ButtonBase } from "@mui/material";
-import VideoContainer from "./video_container"
+import VideoContainer from "./VideoContainer"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { styled } from '@mui/material/styles';
 

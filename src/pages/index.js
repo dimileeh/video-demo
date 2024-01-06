@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
-import PicturePlayButton from "../components/VideoPlayer/picture_play_button"
+import PicturePlayButton from "../components/VideoPlayer/PicturePlayButton"
 
 const links = [
   {

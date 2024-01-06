@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState } from "react";
-import { Box, IconButton, InputBase } from "@mui/material";
+import { Box } from "@mui/material";
 import { styled } from '@mui/material/styles';
 
 const PlayerSlider = styled(Box)(({ theme }) => ({

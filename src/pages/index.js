@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useState } from "react"
 import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
@@ -7,11 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
-import { Grid, Container, Typography, ButtonBase } from "@mui/material"
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { styled } from '@mui/material/styles';
-
-import VideoContainer from "../components/VideoPlayer/video_container"
+import PicturePlayButton from "../components/VideoPlayer/picture_play_button"
 
 const links = [
   {
@@ -76,72 +71,8 @@ const moreLinks = [
 
 const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
 
-const ImageButton = styled(ButtonBase)(({ theme }) => ({
-  position: 'relative',
-  height: 400,
-  width: '100%',
-  '& .MuiTypography-root': {
-    backgroundColor: theme.palette.grey[800],
-    borderRadius: 50,
-    color: theme.palette.common.white,
-    transition: 'all 0.3s ease',
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
-    height: 100,
-  },
-  '&:hover, &.Mui-focusVisible': {
-    zIndex: 1,
-    '& .MuiImageBackdrop-root': {
-      opacity: 0.15,
-    },
-    '& .MuiImageMarked-root': {
-      opacity: 0,
-    },
-    '& .MuiTypography-root': {
-      backgroundColor: theme.palette.common.white,
-      color: theme.palette.grey[800],
-    },
-  },
-}));
-
-const ImageSrc = styled('span')({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center 40%',
-  borderRadius: 20,
-});
-
-const Image = styled('span')(({ theme }) => ({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: theme.palette.common.white,
-}));
-
 
 const IndexPage = () => {
-
-  const [open, setOpen] = useState(false);
-
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
 
   return (
     <Layout>
@@ -159,57 +90,16 @@ const IndexPage = () => {
           Welcome to <b>Gatsby!</b>
         </h1>
 
-        <Container sx={{ my: 5 }}>
-          <VideoContainer open={open} handleClose={handleClose}
-            // videoType="vimeo"
-            // videoURL='https://player.vimeo.com/video/851579304?h=79552e35bc&badge=0&autopause=0&player_id=0&app_id=58479'
-            videoType='cdn'
-            videoURL={{
-              hls: 'https://cdn.revelio.io/users/4NQveonlXZPMQ8IzrSAwbQKiPUh2/tests/OAQpkczAv0C4H2yudngd/videos/h264_master.m3u8',
-              dash: 'https://cdn.revelio.io/users/4NQveonlXZPMQ8IzrSAwbQKiPUh2/tests/OAQpkczAv0C4H2yudngd/videos/h264.mpd'
-            }}
-           />
+        <PicturePlayButton
+          videoType="cdn"
+          videoURL={{
+            hls: 'https://cdn.revelio.io/users/4NQveonlXZPMQ8IzrSAwbQKiPUh2/tests/OAQpkczAv0C4H2yudngd/videos/h264_master.m3u8',
+            dash: 'https://cdn.revelio.io/users/4NQveonlXZPMQ8IzrSAwbQKiPUh2/tests/OAQpkczAv0C4H2yudngd/videos/h264.mpd'
+          }}
+          imageBackgroundURL={'https://images.unsplash.com/photo-1604975999044-188783d54fb3?w=2589'}
+          buttonText="Play the Revolut 10 Film"
+        />
 
-          <Grid container direction="column"
-            justifyContent="center"
-            alignItems="stretch">
-            <Grid item xs={12}>
-
-              <ImageButton
-                focusRipple
-                onClick={handleClickOpen}
-              >
-                <ImageSrc style={{ backgroundImage: `url(https://images.unsplash.com/photo-1604975999044-188783d54fb3?w=2589)` }} />
-                <Image>
-                  <Typography
-                    component="span"
-                    variant="subtitle1"
-                    color="inherit"
-                    sx={{
-                      position: 'relative',
-                      p: 4,
-                      pt: 2,
-                      pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                    }}
-                  >
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                    }}>
-                      <PlayArrowIcon />
-                      <span>
-                        Play the Revolut 10 Film
-                      </span>
-                    </div>
-                  </Typography>
-                </Image>
-              </ImageButton>
-
-            </Grid>
-          </Grid>
-
-        </Container>
         <p className={styles.intro}>
           <b>Example pages:</b>{" "}
           {samplePageLinks.map((link, i) => (
